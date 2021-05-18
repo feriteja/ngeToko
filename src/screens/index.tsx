@@ -1,7 +1,9 @@
-export {default as Cart} from './main/cart';
-export {default as DashBoard} from './main/dashBoard';
-export {default as Favorite} from './main/favorite';
-export {default as Profile} from './main/profile';
+export {default as Cart} from './main/cart/cart';
+export {default as DashBoard} from './main/dashBoard/dashBoard';
+export {default as Favorite} from './main/favorite/favorite';
+export {default as Profile} from './main/profile/profile';
 export {default as Forgot} from './auth/forgot';
 export {default as Login} from './auth/login';
 export {default as Regis} from './auth/regis';
+export {default as SuccessRegis} from './auth/successRegis';
+export {default as Splash} from './splash/splashScreen';
