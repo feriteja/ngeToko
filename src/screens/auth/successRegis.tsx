@@ -2,16 +2,18 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import IconFa from 'react-native-vector-icons/FontAwesome';
+import {useDispatch} from 'react-redux';
 import {Gap} from '../../components';
+import {signOut} from '../../config/redux/actions/auth';
 
 import {authNavigationPropSuccess} from '../../constant/type/router';
-import {logoutFunc} from '../../function/firebase/auth';
 
 const successRegis = () => {
   const navigation = useNavigation<authNavigationPropSuccess>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    logoutFunc();
+    dispatch(signOut());
   }, []);
 
   return (

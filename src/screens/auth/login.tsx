@@ -16,7 +16,14 @@ import {Gap} from '../../components';
 import {useNavigation} from '@react-navigation/core';
 
 import {authNavigationPropLogin} from '../../constant/type/router';
-import {loginFunc, regisFunc} from '../../function/firebase/auth';
+import {useDispatch} from 'react-redux';
+import {signIn} from '../../config/redux/actions/auth';
+
+import {ThunkDispatch} from 'redux-thunk';
+import {AnyAction} from 'redux';
+
+type State = {a: string}; // your state type
+type AppDispatch = ThunkDispatch<State, any, AnyAction>;
 
 const login = () => {
   const navigation = useNavigation<authNavigationPropLogin>();
@@ -25,6 +32,7 @@ const login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
+  const dispatch: AppDispatch = useDispatch();
 
   const loginHandler = async () => {
     try {
@@ -32,12 +40,16 @@ const login = () => {
         return setErrorMessage('Mohon isi kolom kosong');
 
       setModalVisible(true);
-      const loginStatus = await loginFunc(email, password);
+
+      const loginStatus = await dispatch(signIn({email, password}));
+
       setModalVisible(false);
+
       if (loginStatus?.type == 'error') {
-        return setErrorMessage(loginStatus.message);
+        setErrorMessage(loginStatus.message);
+        return;
       } else if (loginStatus?.type == 'success') {
-        return navigation.reset({index: 0, routes: [{name: 'main'}]});
+        navigation.reset({index: 0, routes: [{name: 'main'}]});
       }
     } catch (error) {
       console.log('error', error);

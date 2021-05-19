@@ -1,12 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Router from './src/config/router';
+import {Provider} from 'react-redux';
+import Store from './src/config/redux/store';
 
 const App = () => {
   return (
-    <View style={{flex: 1}}>
-      <Router />
-    </View>
+    <Provider store={Store}>
+      <View style={{flex: 1}}>
+        <Router />
+      </View>
+    </Provider>
   );
 };
 

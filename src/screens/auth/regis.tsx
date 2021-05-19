@@ -14,9 +14,14 @@ import IconFa from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {Gap} from '../../components';
 import {useNavigation} from '@react-navigation/core';
-import {regisFunc} from '../../function/firebase/auth';
-
+import {signUp} from '../../config/redux/actions/auth';
 import {authNavigationPropRegis} from '../../constant/type/router';
+import {useDispatch} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {AnyAction} from 'redux';
+
+type State = {a: string}; // your state type
+type AppDispatch = ThunkDispatch<State, any, AnyAction>;
 
 const regis = () => {
   const navigation = useNavigation<authNavigationPropRegis>();
@@ -28,18 +33,26 @@ const regis = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
 
-  const regisHandler = () => {
+  const regisHandler = async () => {
     if (email == '' || password == '' || nama == '' || confirmPassword == '')
       return setErrorMessage('Mohon isi kolom kosong');
     if (password !== confirmPassword)
       return setErrorMessage('Password tidak cocok');
 
-    setModalVisible(true);
-    regisFunc(nama, email, password).then(() => {
+    try {
+      setModalVisible(true);
+      const authStat = await dispatch(signUp({email, password}));
+
+      if (authStat.type == 'error') {
+        setErrorMessage(authStat.message);
+      } else if (authStat.type == 'error') {
+        navigation.replace('success');
+      }
+
       setModalVisible(false);
-      navigation.replace('success');
-    });
+    } catch (error) {}
   };
 
   return (
