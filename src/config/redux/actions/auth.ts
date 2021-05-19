@@ -10,8 +10,8 @@ export const signOut = () => {
   return async (dispatch: any) => {
     await auth().signOut();
     dispatch({type: action.LOGOUTAUTH});
-    // dispatch({type: action.CLEAR_CART});
-    // dispatch({type: action.CLEAR_FAVORITE});
+    dispatch({type: action.CLEAR_CART});
+    dispatch({type: action.CLEAR_FAVORITE});
   };
 };
 

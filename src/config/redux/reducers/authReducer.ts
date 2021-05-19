@@ -1,15 +1,16 @@
 import {AnyAction} from 'redux';
+import {authAction, authState} from '../../../constant/type/reduxType';
 import * as actions from '../actions';
 
-const initialState = {auth: false, info: null};
+const initialState: authState = {auth: false, info: null};
 
-export default function (state = initialState, action: AnyAction) {
+export default function (state: authState = initialState, action: authAction) {
   switch (action.type) {
     case actions.LOGINAUTH:
       return {auth: true, info: action.payload};
 
     case actions.LOGOUTAUTH:
-      return {auth: false, info: null};
+      return {auth: false, info: action.payload};
 
     default:
       return state;

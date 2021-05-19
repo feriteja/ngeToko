@@ -7,11 +7,14 @@ import {useNavigation} from '@react-navigation/core';
 import {splashNavProp} from '../../constant/type/routerType';
 import {useDispatch} from 'react-redux';
 import {splash} from '../../config/redux/actions/auth';
+import {getItemList} from '../../config/redux/actions/itemActions';
 
 const splashScreen = () => {
   const navigation = useNavigation<splashNavProp>();
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getItemList());
+
     if (auth().currentUser) {
       dispatch(splash(auth().currentUser?.providerData));
     }
