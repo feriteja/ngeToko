@@ -9,7 +9,7 @@ import {
 import IconFa from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import measurement from '../../../constant/measurement';
-import {dashBoardNavProp} from '../../../constant/type/router';
+import {dashBoardNavProp} from '../../../constant/type/routerType';
 import {useNavigation} from '@react-navigation/core';
 
 const header = () => {

@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux';
 import {Gap} from '../../components';
 import {signOut} from '../../config/redux/actions/auth';
 
-import {authNavigationPropSuccess} from '../../constant/type/router';
+import {authNavigationPropSuccess} from '../../constant/type/routerType';
 
 const successRegis = () => {
   const navigation = useNavigation<authNavigationPropSuccess>();

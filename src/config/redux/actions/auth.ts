@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import * as action from './index';
 
 type userPass = {
@@ -7,11 +7,17 @@ type userPass = {
 };
 
 export const signOut = () => {
-  return (dispatch: any) => {
-    auth().signOut();
+  return async (dispatch: any) => {
+    await auth().signOut();
     dispatch({type: action.LOGOUTAUTH});
-    dispatch({type: action.CLEAR_CART});
-    dispatch({type: action.CLEAR_FAVORITE});
+    // dispatch({type: action.CLEAR_CART});
+    // dispatch({type: action.CLEAR_FAVORITE});
+  };
+};
+
+export const splash = (data: FirebaseAuthTypes.UserInfo[] | undefined) => {
+  return (dispatch: any) => {
+    dispatch({type: action.LOGINAUTH, payload: data});
   };
 };
 
@@ -47,13 +53,13 @@ export const signIn = ({email, password}: userPass) => {
       ) {
         return {
           type: 'error',
-          message: 'Invalid email or password',
+          message: 'email atau password salah',
           data: null,
         };
       } else if (error.code === 'auth/network-request-failed') {
         return {
           type: 'error',
-          message: 'no internet, please check your connection',
+          message: 'tidak ada internet, mohon periksa koneksi anda',
           data: null,
         };
       } else {

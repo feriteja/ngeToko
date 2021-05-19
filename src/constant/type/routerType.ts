@@ -31,3 +31,13 @@ export type dashBoardNavProp = CompositeNavigationProp<
   DrawerNavigationProp<dashBoardStackParamList, 'dashBoard'>,
   BottomTabNavigationProp<bottomStackParamList>
 >;
+
+export type bottomNavPropRoot = CompositeNavigationProp<
+  BottomTabNavigationProp<bottomStackParamList, 'dashBoard' | 'cart'>,
+  StackNavigationProp<rootStackParamList>
+>;
+
+export type bottomNavPropProfile = BottomTabNavigationProp<
+  bottomStackParamList,
+  'profile'
+>;

@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import Header from './header';
-import {dashBoardNavProp} from '../../../constant/type/router';
+import {dashBoardNavProp} from '../../../constant/type/routerType';
 
 const dashBoard = ({}) => {
   const navigation = useNavigation<dashBoardNavProp>();
-  console.log(navigation);
+
   return (
     <View style={styles.container}>
       <Header />

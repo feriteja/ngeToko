@@ -4,14 +4,21 @@ import IconFa from 'react-native-vector-icons/FontAwesome';
 import {Gap} from '../../components';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
-import {splashNavProp} from '../../constant/type/router';
+import {splashNavProp} from '../../constant/type/routerType';
+import {useDispatch} from 'react-redux';
+import {splash} from '../../config/redux/actions/auth';
 
 const splashScreen = () => {
   const navigation = useNavigation<splashNavProp>();
+  const dispatch = useDispatch();
   useEffect(() => {
-    auth().currentUser
-      ? navigation.replace('main', {screen: 'dashBoard', params: {}})
-      : navigation.replace('auth');
+    if (auth().currentUser) {
+      dispatch(splash(auth().currentUser?.providerData));
+    }
+    navigation.replace('main', {
+      screen: 'dashBoard',
+      params: {screen: 'dashBoard'},
+    });
   }, []);
 
   return (

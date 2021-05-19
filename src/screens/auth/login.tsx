@@ -15,7 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import {Gap} from '../../components';
 import {useNavigation} from '@react-navigation/core';
 
-import {authNavigationPropLogin} from '../../constant/type/router';
+import {authNavigationPropLogin} from '../../constant/type/routerType';
 import {useDispatch} from 'react-redux';
 import {signIn} from '../../config/redux/actions/auth';
 
@@ -84,6 +84,8 @@ const login = () => {
             color: '#F70000',
             fontWeight: 'bold',
             fontSize: 19,
+            textShadowColor: '#fff',
+            textShadowRadius: 1,
           }}>
           {errorMessage}
         </Text>

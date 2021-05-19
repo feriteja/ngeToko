@@ -15,7 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import {Gap} from '../../components';
 import {useNavigation} from '@react-navigation/core';
 import {signUp} from '../../config/redux/actions/auth';
-import {authNavigationPropRegis} from '../../constant/type/router';
+import {authNavigationPropRegis} from '../../constant/type/routerType';
 import {useDispatch} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
