@@ -10,7 +10,7 @@ const getItemList = () => {
         return item.data();
       });
 
-      dispatch({type: action.GET_ITEM, payload: data});
+      return dispatch({type: action.GET_ITEM, payload: data});
     } catch (error) {}
   };
 };

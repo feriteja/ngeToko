@@ -1,10 +1,13 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {LogBox, StyleSheet, Text, View} from 'react-native';
 import Router from './src/config/router';
 import {Provider} from 'react-redux';
 import Store from './src/config/redux/store';
 
 const App = () => {
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
   return (
     <Provider store={Store}>
       <View style={{flex: 1}}>

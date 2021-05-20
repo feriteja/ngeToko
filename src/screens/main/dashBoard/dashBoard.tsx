@@ -1,19 +1,47 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import Header from './header';
 import {dashBoardNavProp} from '../../../constant/type/routerType';
-import {Carousel} from '../../../components';
+import {Carousel, Gap, ItemList} from '../../../components';
+import {useAppSelector} from '../../../config/redux/store';
+
+const LoadingItems = () => {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator size="large" color="rgb(34,73,242)" />
+    </View>
+  );
+};
 
 const dashBoard = ({}) => {
   const navigation = useNavigation<dashBoardNavProp>();
+  const items = useAppSelector(state => state.items);
 
   return (
     <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <Carousel />
-      </View>
+      {items.length > 0 ? (
+        <ScrollView>
+          <Header />
+          <Gap height={10} />
+          <Carousel />
+          <View style={styles.content}>
+            <Gap height={10} />
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>Semua produk</Text>
+            <Gap height={10} />
+            <ItemList />
+          </View>
+        </ScrollView>
+      ) : (
+        <LoadingItems />
+      )}
     </View>
   );
 };
@@ -25,5 +53,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  content: {},
+  content: {
+    paddingHorizontal: 20,
+    overflow: 'visible',
+  },
 });
