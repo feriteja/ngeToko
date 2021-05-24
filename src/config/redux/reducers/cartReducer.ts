@@ -5,6 +5,9 @@ import * as actionSTATE from '../actions/index';
 const initialState: CartState = [];
 
 export default function (state = initialState, action: CartAction) {
+  const payload = action.payload as cart;
+  const findIDX = state.findIndex(x => x.item.uid === payload.item.uid);
+
   switch (action.type) {
     case actionSTATE.GET_CART:
       if (Array.isArray(action.payload)) {
@@ -12,16 +15,12 @@ export default function (state = initialState, action: CartAction) {
       }
 
     case actionSTATE.ADD_CART_ITEM:
-      const findIDX = state.findIndex(
-        x => x.item.uid === action.payload.item.uid,
-      );
-
-      const addArrayNew = [...state];
-      if (findIDX >= 0) {
-        addArrayNew[findIDX] = action.payload;
-        return addArrayNew;
-      } else {
-        return [...state, {...action.payload}];
+      const newArray = [...state];
+      if (findIDX < 0) {
+        return [...state, {...payload, number: 1}];
+      } else if (findIDX >= 0) {
+        newArray[findIDX].number = payload.number + 1;
+        return newArray;
       }
 
     default:

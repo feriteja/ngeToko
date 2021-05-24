@@ -1,13 +1,15 @@
 import firestore from '@react-native-firebase/firestore';
+import {item} from '../../../constant/type/itemType';
+import {DispatchTypeItem} from '../../../constant/type/reduxType';
 import * as action from './index';
 
 const getItemList = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: DispatchTypeItem) => {
     try {
       const items = await firestore().collection('items').get();
 
       const data = items.docs.map(item => {
-        return item.data();
+        return {...item.data(), uid: item.id} as item;
       });
 
       return dispatch({type: action.GET_ITEM, payload: data});

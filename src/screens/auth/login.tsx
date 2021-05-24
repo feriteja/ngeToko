@@ -21,6 +21,7 @@ import {signIn} from '../../config/redux/actions/auth';
 
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
+import {useAppDispatch} from '../../config/redux/store';
 
 type State = {a: string}; // your state type
 type AppDispatch = ThunkDispatch<State, any, AnyAction>;
@@ -32,7 +33,7 @@ const login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   const loginHandler = async () => {
     try {

@@ -1,10 +1,10 @@
 import {AnyAction} from 'redux';
-import {itemAction, itemState} from '../../../constant/type/reduxType';
+import {ItemAction, ItemState} from '../../../constant/type/reduxType';
 import * as actionSTATE from '../actions/index';
 
-const initialState: itemState = [];
+const initialState: ItemState = [];
 
-export default function (state: itemState = initialState, action: itemAction) {
+export default function (state: ItemState = initialState, action: ItemAction) {
   switch (action.type) {
     case actionSTATE.GET_ITEM:
       return [...action.payload];

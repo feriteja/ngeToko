@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   NavigationContainer,
   NavigatorScreenParams,
@@ -8,6 +8,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Auth, {authStackParamList} from './auth';
 import Main, {bottomStackParamList} from './bottomTab';
 import {Splash} from '../../screens';
+import {useAppSelector} from '../redux/store';
+import {useDispatch} from 'react-redux';
+import {clearCartList, getCartList} from '../redux/actions/cartAction';
 
 export type rootStackParamList = {
   splash: undefined;
@@ -18,6 +21,20 @@ export type rootStackParamList = {
 const RootStack = createStackNavigator<rootStackParamList>();
 
 const index = () => {
+  const auth = useAppSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (auth.auth) {
+      dispatch(getCartList());
+    } else if (!auth.auth) {
+      dispatch(clearCartList);
+    }
+    return () => {
+      dispatch(clearCartList);
+    };
+  }, [auth.auth]);
+
   return (
     <NavigationContainer>
       <RootStack.Navigator headerMode="none">

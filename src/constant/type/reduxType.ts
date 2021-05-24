@@ -1,19 +1,33 @@
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {item} from './itemType';
+import {cart, item} from './itemType';
 
-export type itemState = item[] | [];
+export type ItemState = item[] | [];
 
-export type itemAction = {
+export type ItemAction = {
   type: string;
   payload: item[];
 };
 
-export type authState = {
+export type DispatchTypeItem = (args: ItemAction) => ItemAction;
+
+export type AuthState = {
   auth: boolean;
   info: FirebaseAuthTypes.UserInfo[] | null;
 };
 
-export type authAction = {
+export type AuthAction = {
   type: string;
-  payload: authState;
+  payload: FirebaseAuthTypes.UserInfo[] | null;
 };
+
+export type DispatchTypeAuth = (args: AuthAction) => AuthAction;
+
+export type CartState = cart[];
+
+export type CartAction = {
+  type: string;
+  payload: cart[] | cart;
+  number?: number;
+};
+
+export type DispatchTypeCart = (args: CartAction) => CartAction;

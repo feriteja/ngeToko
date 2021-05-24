@@ -1,4 +1,5 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {DispatchTypeAuth} from '../../../constant/type/reduxType';
 import * as action from './index';
 
 type userPass = {
@@ -22,7 +23,7 @@ export const splash = (data: FirebaseAuthTypes.UserInfo[] | undefined) => {
 };
 
 export const signIn = ({email, password}: userPass) => {
-  return async (dispatch: any) => {
+  return async (dispatch: DispatchTypeAuth) => {
     try {
       const authLogin = await auth().signInWithEmailAndPassword(
         email.trim().toLowerCase(),

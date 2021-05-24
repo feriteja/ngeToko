@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -11,7 +11,15 @@ import {useNavigation} from '@react-navigation/core';
 import Header from './header';
 import {dashBoardNavProp} from '../../../constant/type/routerType';
 import {Carousel, Gap, ItemList} from '../../../components';
-import {useAppSelector} from '../../../config/redux/store';
+import {useAppDispatch, useAppSelector} from '../../../config/redux/store';
+
+import {getItemList} from '../../../config/redux/actions/itemActions';
+import {ThunkDispatch} from 'redux-thunk';
+import {AnyAction} from 'redux';
+import {
+  clearCartList,
+  getCartList,
+} from '../../../config/redux/actions/cartAction';
 
 const LoadingItems = () => {
   return (
@@ -21,9 +29,22 @@ const LoadingItems = () => {
   );
 };
 
+type State = {a: string}; // your state type
+type AppDispatch = ThunkDispatch<State, any, AnyAction>;
+
 const dashBoard = ({}) => {
   const navigation = useNavigation<dashBoardNavProp>();
   const items = useAppSelector(state => state.items);
+
+  const dispatch: AppDispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(getItemList());
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

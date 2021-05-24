@@ -1,11 +1,25 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {item} from '../../../constant/type/itemType';
+import React, {useMemo} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {item, cart} from '../../../constant/type/itemType';
 import cardColor from '../../../constant/color/cardCollectionsColor';
 import measurement from '../../../constant/measurement';
 import IconFa from 'react-native-vector-icons/FontAwesome';
+import {useAppDispatch, useAppSelector} from '../../../config/redux/store';
+import {addCartHandler} from '../../../config/redux/actions/cartAction';
+import {useDispatch} from 'react-redux';
 
 const cardItem = ({item, index}: {item: item; index: number}) => {
+  const dispatch = useDispatch();
+
+  const carts = useAppSelector(state => state.cart);
+
+  const numberItem = useMemo(() => {
+    const findIdx = carts.findIndex(
+      (cartidx: cart) => cartidx.item.uid == item.uid,
+    );
+    return carts[findIdx]?.number || 0;
+  }, [carts]);
+
   return (
     <View
       style={[styles.cardContainer, {backgroundColor: cardColor[index % 4]}]}>
@@ -27,22 +41,15 @@ const cardItem = ({item, index}: {item: item; index: number}) => {
           <Text style={{fontWeight: 'normal'}}>{item.price.type}</Text>
         </Text>
       </View>
-      <View
-        style={{
-          height: 140,
-          width: 40,
-          backgroundColor: cardColor[index % 4],
-          position: 'absolute',
-          bottom: -10,
-          right: 10,
-          elevation: 2,
-          borderRadius: 10,
-          justifyContent: 'space-between',
-          paddingVertical: 20,
-          alignItems: 'center',
-        }}>
+      <View style={[styles.cardActionContent]}>
         <IconFa name="heart-o" size={20} />
-        <IconFa name="opencart" size={20} />
+        <TouchableOpacity
+          style={[styles.cartAction, {backgroundColor: cardColor[index % 4]}]}
+          onPress={() =>
+            dispatch(addCartHandler({item: item, number: numberItem}))
+          }>
+          <IconFa name="opencart" size={20} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -59,5 +66,23 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: 'visible',
     height: measurement.CARD_ITEM_HEIGTH,
+  },
+  cardActionContent: {
+    height: 130,
+    position: 'absolute',
+    paddingVertical: 15,
+    width: 40,
+    right: 10,
+    borderRadius: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  cartAction: {
+    elevation: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 7,
+    borderRadius: 10,
+    position: 'absolute',
+    bottom: -5,
   },
 });

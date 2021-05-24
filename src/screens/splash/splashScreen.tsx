@@ -13,8 +13,6 @@ const splashScreen = () => {
   const navigation = useNavigation<splashNavProp>();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getItemList());
-
     if (auth().currentUser) {
       dispatch(splash(auth().currentUser?.providerData));
     }
