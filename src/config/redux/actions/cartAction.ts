@@ -45,8 +45,45 @@ const addCartHandler = (props: cart) => {
   };
 };
 
+const updateCartHandler = (props: cart, number: number) => {
+  return async (dispatch: DispatchTypeCart) => {
+    const myUid = auth().currentUser?.uid;
+
+    await firestore()
+      .collection('users')
+      .doc(myUid)
+      .collection('cart')
+      .doc(props.item.uid)
+      .update({number: number});
+    dispatch({type: action.UPDATE_CART_ITEM, payload: {...props, number}});
+  };
+};
+
+const deleteCartHandler = (props: cart) => {
+  return async (dispatch: DispatchTypeCart) => {
+    const myUid = auth().currentUser?.uid;
+
+    try {
+      await firestore()
+        .collection('users')
+        .doc(myUid)
+        .collection('cart')
+        .doc(props.item.uid)
+        .delete();
+
+      dispatch({type: action.DELETE_CART_ITEM, payload: props});
+    } catch (error) {}
+  };
+};
+
 const clearCartList = {
   type: action.CLEAR_CART,
 };
 
-export {getCartList, clearCartList, addCartHandler};
+export {
+  getCartList,
+  clearCartList,
+  addCartHandler,
+  updateCartHandler,
+  deleteCartHandler,
+};

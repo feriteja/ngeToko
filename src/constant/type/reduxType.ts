@@ -5,7 +5,7 @@ export type ItemState = item[] | [];
 
 export type ItemAction = {
   type: string;
-  payload: item[];
+  payload: item[] | item;
 };
 
 export type DispatchTypeItem = (args: ItemAction) => ItemAction;

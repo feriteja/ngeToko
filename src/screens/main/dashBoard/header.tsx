@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/core';
 
 const header = () => {
   const navigation = useNavigation<dashBoardNavProp>();
+
   return (
     <View style={styles.header}>
       <TouchableOpacity
@@ -46,6 +47,7 @@ const header = () => {
         </View>
       </View>
       <TouchableOpacity
+        onPress={() => navigation.push('favorite')}
         style={{padding: 10, borderRadius: 9999, backgroundColor: '#f5F5F5'}}>
         <IconFa name="heart-o" size={20} />
       </TouchableOpacity>
@@ -57,6 +59,7 @@ export default header;
 
 const styles = StyleSheet.create({
   header: {
+    paddingTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 10,

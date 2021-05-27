@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,16 +11,12 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import Header from './header';
 import {dashBoardNavProp} from '../../../constant/type/routerType';
-import {Carousel, Gap, ItemList} from '../../../components';
-import {useAppDispatch, useAppSelector} from '../../../config/redux/store';
+import {Carousel, Gap, ItemList} from '@components';
+import {useAppDispatch, useAppSelector} from '@redux/store';
 
-import {getItemList} from '../../../config/redux/actions/itemActions';
+import {getItemList} from '@redux/actions/itemActions';
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
-import {
-  clearCartList,
-  getCartList,
-} from '../../../config/redux/actions/cartAction';
 
 const LoadingItems = () => {
   return (
@@ -48,6 +45,11 @@ const dashBoard = ({}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
       {items.length > 0 ? (
         <ScrollView>
           <Header />

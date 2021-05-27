@@ -7,13 +7,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Auth, {authStackParamList} from './auth';
 import Main, {bottomStackParamList} from './bottomTab';
-import {Splash} from '../../screens';
+import {Splash, Favorite} from '@screens';
 import {useAppSelector} from '../redux/store';
 import {useDispatch} from 'react-redux';
 import {clearCartList, getCartList} from '../redux/actions/cartAction';
 
 export type rootStackParamList = {
   splash: undefined;
+  favorite: undefined;
   main: NavigatorScreenParams<bottomStackParamList>;
   auth: NavigatorScreenParams<authStackParamList>;
 };
@@ -39,6 +40,7 @@ const index = () => {
     <NavigationContainer>
       <RootStack.Navigator headerMode="none">
         <RootStack.Screen name="splash" component={Splash} />
+        <RootStack.Screen name="favorite" component={Favorite} />
         <RootStack.Screen name="auth" component={Auth} />
         <RootStack.Screen name="main" component={Main} />
       </RootStack.Navigator>

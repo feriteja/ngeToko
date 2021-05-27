@@ -26,10 +26,19 @@ export type authNavigationPropSuccess = StackNavigationProp<
 >;
 
 export type splashNavProp = StackNavigationProp<rootStackParamList, 'splash'>;
+export type favNavProp = StackNavigationProp<rootStackParamList, 'favorite'>;
 
 export type dashBoardNavProp = CompositeNavigationProp<
-  DrawerNavigationProp<dashBoardStackParamList, 'dashBoard'>,
-  BottomTabNavigationProp<bottomStackParamList>
+  DrawerNavigationProp<dashBoardStackParamList, 'dashBoard' | 'filtered'>,
+  CompositeNavigationProp<
+    BottomTabNavigationProp<bottomStackParamList>,
+    StackNavigationProp<rootStackParamList>
+  >
+>;
+
+export type sideNavProp = DrawerNavigationProp<
+  dashBoardStackParamList,
+  'dashBoard' | 'filtered'
 >;
 
 export type bottomNavPropRoot = CompositeNavigationProp<
@@ -40,4 +49,9 @@ export type bottomNavPropRoot = CompositeNavigationProp<
 export type bottomNavPropProfile = BottomTabNavigationProp<
   bottomStackParamList,
   'profile'
+>;
+
+export type bottomNavPropCart = CompositeNavigationProp<
+  BottomTabNavigationProp<bottomStackParamList, 'cart'>,
+  StackNavigationProp<rootStackParamList>
 >;

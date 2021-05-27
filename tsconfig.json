@@ -10,7 +10,15 @@
       "moduleResolution": "node",
       "noEmit": true,
       "strict": true,
-      "target": "esnext"
+      "target": "esnext",
+      "baseUrl": "./src",
+      "paths": {
+        "@router/*": ["./config/router/*"],
+        "@redux/*": ["./config/redux/*"],
+        "@screens": ["./screens/"],
+        "@components": ["./components/"],
+        "@constant/*": ["./constant/*"],
+      },
     },
     "exclude": [
       "node_modules",

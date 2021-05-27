@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Text, ViewStyle} from 'react-native';
 
 const gap = ({
-  height = 0,
-  width = 0,
+  height,
+  width,
   style,
 }: {
   height?: number;

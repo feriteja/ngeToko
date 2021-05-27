@@ -1,17 +1,19 @@
 import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {item, cart} from '../../../constant/type/itemType';
-import cardColor from '../../../constant/color/cardCollectionsColor';
-import measurement from '../../../constant/measurement';
+import {item, cart} from '@constant/type/itemType';
+import cardColor from '@constant/color/cardCollectionsColor';
+import measurement from '@constant/measurement';
 import IconFa from 'react-native-vector-icons/FontAwesome';
-import {useAppDispatch, useAppSelector} from '../../../config/redux/store';
-import {addCartHandler} from '../../../config/redux/actions/cartAction';
+import {useAppDispatch, useAppSelector} from '@redux/store';
+import {addCartHandler} from '@redux/actions/cartAction';
+import {addToFavorite, deleteFav} from '@redux/actions/favoriteActions';
 import {useDispatch} from 'react-redux';
 
 const cardItem = ({item, index}: {item: item; index: number}) => {
   const dispatch = useDispatch();
 
   const carts = useAppSelector(state => state.cart);
+  const favorites = useAppSelector(state => state.favorites);
 
   const numberItem = useMemo(() => {
     const findIdx = carts.findIndex(
@@ -19,6 +21,15 @@ const cardItem = ({item, index}: {item: item; index: number}) => {
     );
     return carts[findIdx]?.number || 0;
   }, [carts]);
+
+  const isExist = favorites.some(fav => fav.uid == item.uid);
+  const favoriteHandler = () => {
+    if (isExist) {
+      dispatch(deleteFav(item));
+    } else {
+      dispatch(addToFavorite(item));
+    }
+  };
 
   return (
     <View
@@ -42,7 +53,13 @@ const cardItem = ({item, index}: {item: item; index: number}) => {
         </Text>
       </View>
       <View style={[styles.cardActionContent]}>
-        <IconFa name="heart-o" size={20} />
+        <TouchableOpacity onPress={() => favoriteHandler()}>
+          {isExist ? (
+            <IconFa name="heart" color="red" size={20} />
+          ) : (
+            <IconFa name="heart-o" color="#444" size={20} />
+          )}
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.cartAction, {backgroundColor: cardColor[index % 4]}]}
           onPress={() =>

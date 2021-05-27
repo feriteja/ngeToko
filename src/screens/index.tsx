@@ -1,5 +1,6 @@
 export {default as Cart} from './main/cart/cart';
 export {default as DashBoard} from './main/dashBoard/dashBoard';
+export {default as FilteredItem} from './main/filteredItem/filteredItem';
 export {default as Favorite} from './main/favorite/favorite';
 export {default as Profile} from './main/profile/profile';
 export {default as Forgot} from './auth/forgot';
