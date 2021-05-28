@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import {signOut} from '../../../config/redux/actions/auth';
 import {useNavigation} from '@react-navigation/core';
 import {bottomNavPropProfile} from '../../../constant/type/routerType';
+import {Header} from 'components';
 
 const profile = () => {
   const dispatch = useDispatch();
@@ -18,14 +19,17 @@ const profile = () => {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Pressable onPress={() => signOutHandler()}>
-        <Text>Logout</Text>
-      </Pressable>
+    <View style={styles.container}>
+      <Header title={'Profil'} />
     </View>
   );
 };
 
 export default profile;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

@@ -31,8 +31,6 @@ const addCartHandler = (props: cart) => {
   return async (dispatch: DispatchTypeCart) => {
     const myUid = auth().currentUser?.uid;
 
-    console.log(props.number);
-
     try {
       await firestore()
         .collection('users')

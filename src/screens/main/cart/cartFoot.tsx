@@ -15,6 +15,7 @@ import {
 import IconFa from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import {BaseNavigationContainer} from '@react-navigation/core';
+import {Gap} from 'components';
 
 const slideIn = {
   from: {
@@ -28,8 +29,6 @@ const slideIn = {
 const cartFoot = () => {
   const cart = useAppSelector(state => state.cart);
   const [modalVisible, setModalVisible] = useState(false);
-  const modalRef =
-    useRef<Animatable.AnimatableComponent<ViewProps, ViewStyle>>(null);
   const totalPrice = cart
     .map(item => item.item.price.number * item.number)
     .reduce((acc, curr) => acc + curr, 0);
@@ -40,7 +39,6 @@ const cartFoot = () => {
 
   const modalHandler = () => {
     setModalVisible(true);
-    // modalRef.current?.transition(slideIn);
   };
 
   return (
@@ -73,7 +71,7 @@ const cartFoot = () => {
       </TouchableOpacity>
 
       <Modal
-        animationType="fade"
+        animationType="slide"
         statusBarTranslucent
         transparent={true}
         visible={modalVisible}
@@ -106,7 +104,39 @@ const cartFoot = () => {
                 borderRadius: 999,
               }}
             />
-            <Text>asdsad</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 16}}>
+              Ringkasan Belanja
+            </Text>
+            <Gap height={10} />
+            {cart.map(item => {
+              return (
+                <View
+                  key={item.item.uid}
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginVertical: 5,
+                  }}>
+                  <Text>
+                    {item.item.name} ({item.number} Barang)
+                  </Text>
+                  <Text style={{fontWeight: 'bold'}}>
+                    Rp{item.item.price.number * item.number}
+                  </Text>
+                </View>
+              );
+            })}
+            <Gap
+              height={5}
+              style={{backgroundColor: '#f0f0f0', marginVertical: 10}}
+            />
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text>Total bayar</Text>
+              <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                Rp{totalPrice}
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </Modal>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DashBoard, FilteredItem} from '@screens';
 import {Text, TouchableOpacity, View} from 'react-native';
@@ -14,7 +14,13 @@ const Drawer = createDrawerNavigator<dashBoardStackParamList>();
 
 const categories = ['Semua', 'Jajanan', 'Sembako', 'Rokok'];
 
-const CustomDrawerContent = ({navigation}: {navigation: sideNavProp}) => {
+const CustomDrawerContent = ({
+  navigation,
+  state,
+}: {
+  navigation: sideNavProp;
+  state: any;
+}) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
   const moveScreenHandler = (idx: number, cat: string) => {
@@ -25,6 +31,12 @@ const CustomDrawerContent = ({navigation}: {navigation: sideNavProp}) => {
       navigation.jumpTo('filtered', {categorie: cat});
     }
   };
+
+  useEffect(() => {
+    if (state.index == 0) {
+      setActiveIdx(0);
+    }
+  }, [state.index]);
 
   return (
     <View>

@@ -19,8 +19,6 @@ const filteredItem = () => {
     item => item.type === route.params.categorie.toLocaleLowerCase(),
   );
 
-  console.log(itemByCat);
-
   return (
     <View>
       <Header

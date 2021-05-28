@@ -23,9 +23,6 @@ const cart = () => {
         data={cart}
         contentContainerStyle={{}}
         keyExtractor={item => item.item.uid}
-        // ItemSeparatorComponent={() => (
-        //   <Gap height={7} style={{backgroundColor: '#f0f0f0'}} />
-        // )}
         renderItem={({item}) => <CardCart item={item} />}
       />
       <CartFoot />

@@ -20,7 +20,13 @@ const BottomTab = createBottomTabNavigator<bottomStackParamList>();
 
 const bottomTab = () => {
   const auth = useAppSelector(state => state.auth);
+  const cart = useAppSelector(state => state.cart);
+
   const navigation = useNavigation<bottomNavPropRoot>();
+
+  const totalItem = cart
+    .map(item => item.number)
+    .reduce((acc, curr) => acc + curr, 0);
 
   return (
     <BottomTab.Navigator>
@@ -38,6 +44,8 @@ const bottomTab = () => {
         name="cart"
         component={Cart}
         options={{
+          tabBarBadge: totalItem,
+          tabBarBadgeStyle: {backgroundColor: '#2f88FF'},
           tabBarLabel: 'Keranjang',
           tabBarIcon: ({color, size}) => (
             <IconFa name="opencart" color={color} size={size} />
